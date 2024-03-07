@@ -1,0 +1,7 @@
+{
+  "name": "RASTRO",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
