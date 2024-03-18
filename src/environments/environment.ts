@@ -12,7 +12,7 @@ export const environment = {
     grant_type : `password`,
     client_id : `meteora_ws`
   },
-  versionRastro : `2.00.251`
+  versionRastro : `2.03.251+`
 };
 
 /*
