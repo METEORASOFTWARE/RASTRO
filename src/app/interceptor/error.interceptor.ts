@@ -6,9 +6,10 @@ import {
   HttpInterceptor,
   HttpErrorResponse
 } from '@angular/common/http';
-import { Observable, catchError, throwError } from 'rxjs';
+import { Observable, catchError, switchMap, throwError } from 'rxjs';
 import { TokenService } from '../services/token/token.service';
 import { TokenInterface } from '../interface/token-interface';
+
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
@@ -22,9 +23,24 @@ export class ErrorInterceptor implements HttpInterceptor {
     .pipe(  
       catchError((error: HttpErrorResponse) => {
         if ( error.status === 401 ) {
-          console.log('401 Unauthorized')
-          this.tokenSrv.removeToken();
-          return next.handle(request);
+          console.log(`401 Unauthorized`, request)
+          return this.tokenSrv.generateToken()
+          .pipe(
+            switchMap( (res: TokenInterface) => {
+              this.tokenSrv.removeToken();
+              const newtoken = res.access_token;
+              this.tokenSrv.setToken(res)
+    
+              request = request.clone({
+                setHeaders: {
+                  Authorization: `Bearer ${newtoken}`,
+                },
+              });
+              
+              return next.handle(request);
+
+            })
+          );
         }
         return throwError(error)
       })
