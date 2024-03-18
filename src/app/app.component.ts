@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { TokenService } from './services/token/token.service';
+import { TokenInterface } from './interface/token-interface';
 
 @Component({
   selector: 'app-root',
@@ -8,8 +9,6 @@ import { TokenService } from './services/token/token.service';
 })
 export class AppComponent {
   constructor(
-    private tokenSrv: TokenService,
   ) {
-    this.tokenSrv.generateToken();
   }
 }

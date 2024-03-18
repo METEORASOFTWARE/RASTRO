@@ -3,6 +3,7 @@ import { EnvtokenService } from '../env/envtoken.service';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { TokenInterface } from 'src/app/interface/token-interface';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class TokenService {
     private envSrv: EnvtokenService,
   ) { }
 
-  public generateToken() {
+  public generateToken() : Observable<TokenInterface> {
 
     const data = new URLSearchParams();
 		data.set('username', environment.token.username);
@@ -21,10 +22,7 @@ export class TokenService {
 		data.set('grant_type', environment.token.grant_type);
 		data.set('client_id', environment.token.client_id);
 
-    this.envSrv.postQuery('', data.toString())
-    .subscribe( (res: TokenInterface) => {
-      localStorage.setItem('token', res.access_token);
-    })
+    return this.envSrv.postQuery('', data.toString())
   }
 
   public removeToken() {
@@ -33,5 +31,9 @@ export class TokenService {
 
   public setToken(data : TokenInterface) {
     localStorage.setItem('token', data.access_token);
+  }
+
+  public getToken() {
+    return localStorage.getItem('token');
   }
 }

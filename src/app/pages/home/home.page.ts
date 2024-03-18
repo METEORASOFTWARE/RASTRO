@@ -24,6 +24,8 @@ export class HomePage implements OnInit {
     .subscribe( (res: Productos) => {
       this.PRODUCTOS = res;
       this.LOADING_DATOS = false;
+    }, (error: any ) => {
+      this.LOADING_DATOS = false;
     })
   }
 
