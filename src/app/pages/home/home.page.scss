@@ -1,0 +1,36 @@
+ion-thumbnail {
+    // --size: 350px;
+    --border-radius: 14px;
+    width: 100%; 
+    height: auto; 
+    position: relative;
+    padding-bottom: 100%;
+  }
+
+  img {
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%;
+  }
+
+  .marca-agua {
+    position: absolute;
+    top: 50%; /* Centra verticalmente la marca de agua */
+    left: 50%; /* Centra horizontalmente la marca de agua */
+    transform: translate(-50%, -50%); /* Centra completamente la marca de agua */
+    font-size: 5vw; /* Tamaño del texto de la marca de agua en relación con el ancho de la ventana */
+    color: rgba(255, 255, 255, 0.7); /* Color y transparencia del texto de la marca de agua */
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5); /* Sombra para mejorar la legibilidad */
+  }
+  
+  @media (min-width: 1024px) {
+    .marca-agua {
+      font-size: 50px; /* Ajusta el tamaño del texto para pantallas grandes */
+    }
+  }
+  
+  
+  
+  
